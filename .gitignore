@@ -1,0 +1,5 @@
+node_modules
+libs/**/dist
+libs/**/es
+libs/**/lib
+storybook-static

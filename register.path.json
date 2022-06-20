@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"@supdesign/com-demo": [
+				"libs/demo/src/index.tsx"
+			]
+		}
+	}
+}

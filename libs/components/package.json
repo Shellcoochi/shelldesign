@@ -1,0 +1,23 @@
+{
+	"name": "@supdesign/components",
+	"version": "0.1.3",
+	"description": "cards",
+	"main": "lib/index.js",
+	"module": "es/index.js",
+	"types": "es/index.d.ts",
+	"author": "supdesign",
+	"license": "ISC",
+	"files": [
+		"dist/*",
+		"lib",
+		"es"
+	],
+	"devDependencies": {},
+	"peerDependencies": {
+		"react": ">=18.1.0",
+		"react-dom": ">=18.1.0"
+	},
+	"dependencies": {
+		"@supdesign/com-demo": "workspace:*"
+	}
+}

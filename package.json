@@ -1,0 +1,47 @@
+{
+  "license": "ISC",
+  "scripts": {
+    "start": "pnpm -r storybook",
+    "build": "pnpm update:reg && pnpm install && cross-env NODE_ENV=production webpack",
+    "build:pure":"cross-env NODE_ENV=production webpack",
+    "init:com":" node scripts/createComCli.js init",
+    "update:reg":"node scripts/updateRegister.js",
+    "build:storybook": "pnpm -r build-storybook",
+    "build:tsc": "tsc"
+  },
+  "peerDependencies": {
+    "react": ">=18.1.0",
+    "react-dom": ">=18.1.0"
+  },
+  "dependencies": {
+    "@types/react": "^18.0.9",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/plugin-transform-runtime": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-flow": "^7.17.12",
+    "@babel/preset-react": "^7.17.12",
+    "@changesets/cli": "^2.23.0",
+    "babel-loader": "^8.2.5",
+    "commander": "^9.3.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.0.0",
+    "ejs": "^3.1.8",
+    "inquirer": "^8.2.4",
+    "less": "^4.1.3",
+    "less-loader": "^8.0.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "postcss-nested": "^5.0.6",
+    "postcss-preset-env": "^7.7.1",
+    "semver": "^7.3.7",
+    "terser-webpack-plugin": "^5.3.3",
+    "ts-loader": "^9.3.0",
+    "typescript": "^4.7.3",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.9.2"
+  }
+}

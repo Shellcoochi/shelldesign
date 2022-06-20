@@ -1,0 +1,15 @@
+import React from "react";
+
+import <%= name.replace(/\w/, c => c.toUpperCase())%> from ".";
+
+export default {
+  component: <%= name.replace(/\w/, c => c.toUpperCase())%>,
+  title: "@supdesign/<%= name.replace(/\w/, c => c.toUpperCase())%>",
+};
+
+const Template = (args) => <<%= name.replace(/\w/, c => c.toUpperCase())%> {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  children: "hello <%= name%>",
+};

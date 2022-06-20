@@ -1,0 +1,28 @@
+import React from "react";
+import classNames from "classnames";
+import "./index.less";
+
+export type <%= name.replace(/\w/, c => c.toUpperCase())%>Props = {
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
+};
+
+const <%= name.replace(/\w/, c => c.toUpperCase())%> = (props: <%= name.replace(/\w/, c => c.toUpperCase())%>Props) => {
+  const { className: <%= name%>ClassName, style, children } = props;
+
+  const className = classNames(
+    {
+      "supdesign-<%= name%>": true,
+    },
+    <%= name%>ClassName
+  );
+
+  return (
+    <div className={className} style={style}>
+      {children}
+    </div>
+  );
+};
+
+export default <%= name.replace(/\w/, c => c.toUpperCase())%>;
