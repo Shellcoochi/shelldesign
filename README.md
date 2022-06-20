@@ -1,4 +1,4 @@
-# 汽配云MEX组件库
+# 组件库
 
 此项目采用单仓库多包架构，使用pnpm并集成changesets进行多包管理，并支持多组件单包发布。集成storybook支持本地实时预览。打包输出ESM、UMD、CJS
 
