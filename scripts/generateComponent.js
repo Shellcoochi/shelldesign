@@ -4,6 +4,7 @@ const fs = require("fs");
 const ejs = require("ejs");
 const { exec } = require("node:child_process");
 const { generateFile, mkdir } = require("./generateFile");
+const { execSync } = require("child_process");
 
 const ejsRender = (tmp, data = {}) => {
   return ejs.render(tmp.toString(), data, {});
@@ -85,19 +86,14 @@ const generatePages = async (componentConfig) => {
   console.log(`正在安装 ${componentConfig.name} 依赖`);
   sleep();
   installChildPkg(`@supdesign/com-${componentConfig.name}`);
+  console.log(`${componentConfig.name} 依赖安装完成`);
 };
 
 /**
  * 安装子包依赖
  */
 const installChildPkg = (name) => {
-  exec(`pnpm install -r --filter ${name}`, (error) => {
-    if (error) {
-      console.error(error);
-    } else {
-      console.log(`${name} 依赖安装完成`);
-    }
-  });
+  execSync(`pnpm install -r --filter ${name}`);
 };
 
 /**
@@ -142,11 +138,14 @@ const addComponentsPkgJson = async (componentConfig) => {
   );
 };
 
-// 更新多组件单包输出入口
-const updateComponentsEntry = async () => {
-  const libsPkgs = fs
+const getLibsPkgs = () =>
+  fs
     .readdirSync(path.join(__dirname, "../libs"))
     .filter((pkg) => pkg.charAt(0) !== "." && pkg !== "components");
+
+// 更新多组件单包输出入口
+const updateComponentsEntry = async () => {
+  const libsPkgs = getLibsPkgs();
   const entryPath = path.resolve(__dirname, "../libs/components/src/index.tsx");
   const newEntry = getPkgName(libsPkgs).reduce((entry, pkgName) => {
     return (
@@ -182,9 +181,7 @@ const updateComPkg = async () => {
   const pkgPath = path.resolve(__dirname, "../libs/components/package.json");
   const packageJsonFile = fs.readFileSync(pkgPath);
   const packageJson = JSON.parse(packageJsonFile.toString());
-  const libsPkgs = fs
-    .readdirSync(path.join(__dirname, "../libs"))
-    .filter((pkg) => pkg.charAt(0) !== "." && pkg !== "components");
+  const libsPkgs = getLibsPkgs();
   const pkgNames = getPkgName(libsPkgs);
   const newDependencies = pkgNames.reduce((newDependencies, pkgName) => {
     return (newDependencies = {
@@ -204,9 +201,7 @@ const updateComPkg = async () => {
 
 //更新组件注册列表
 const updateRegister = async () => {
-  const libsPkgs = fs
-    .readdirSync(path.join(__dirname, "../libs"))
-    .filter((pkg) => pkg.charAt(0) !== "." && pkg !== "components");
+  const libsPkgs = getLibsPkgs();
   libsPkgs.forEach((pkg) => {
     const [name] = getPkgName([pkg]);
   });
@@ -229,4 +224,12 @@ const updateComponentsList = async () => {
   }
 };
 
-module.exports = { generatePages, updateComponentsList };
+module.exports = {
+  generatePages,
+  updateComponentsList,
+  getLibsPkgs,
+  ejsRender,
+  getPkgName,
+  installChildPkg,
+  sleep
+};

@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const semver = require("semver");
-const { generatePages } = require("./generateComponent");
+const { generatePages, getLibsPkgs } = require("./generateComponent");
 
 async function initComponent() {
   function isValidName(v) {
@@ -9,12 +9,17 @@ async function initComponent() {
     );
   }
   let component = {};
+  const libsPkgs = getLibsPkgs();
   const args = Array.from(arguments);
   const inputName = args[0];
   const componentPrompt = [];
   if (inputName) {
     if (!isValidName(inputName)) {
       console.error("组件名称输入不合法！");
+      return;
+    } else if (libsPkgs.includes(inputName)) {
+      console.error("组件已存在！");
+      return;
     } else {
       component = { ...component, name: inputName };
     }
@@ -32,6 +37,10 @@ async function initComponent() {
           //3.字符仅允许“-_”
           if (!isValidName(v)) {
             done(`请输入合法的组件名称`);
+            return;
+          }
+          if(libsPkgs.includes(v)){
+            done(`组件已存在！`);
             return;
           }
           done(null, true);

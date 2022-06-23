@@ -1,12 +1,13 @@
 {
   "license": "ISC",
   "scripts": {
-    "start": "pnpm -r storybook",
-    "build": "pnpm update:reg && pnpm install && cross-env NODE_ENV=production webpack",
-    "build:pure":"cross-env NODE_ENV=production webpack",
-    "init:com":" node scripts/createComCli.js init",
+    "start": "pnpm -r  --reporter append-only storybook",
+    "build": "pnpm update:reg && pnpm install && pnpm build:pure",
+    "build:pure":"cross-env NODE_ENV=production webpack && node scripts/resolveCssDist.js",
+    "init:com":"node scripts/componentsCli.js init",
     "update:reg":"node scripts/updateRegister.js",
     "build:storybook": "pnpm -r build-storybook",
+    "inject":"node scripts/componentsCli.js inject",
     "build:tsc": "tsc"
   },
   "peerDependencies": {
